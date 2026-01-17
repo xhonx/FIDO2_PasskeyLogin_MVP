@@ -1,6 +1,6 @@
-'use server';
+"use server";
 
-import { WebAuthnError } from '@simplewebauthn/browser';
+import { WebAuthnError } from "@simplewebauthn/browser";
 import {
   generateRegistrationOptions,
   RegistrationResponseJSON,
@@ -8,8 +8,8 @@ import {
   type AuthenticatorTransportFuture,
   type Base64URLString,
   type CredentialDeviceType,
-} from '@simplewebauthn/server';
-import { JsonFileDB } from '../jsondb';
+} from "@simplewebauthn/server";
+import { JsonFileDB } from "../lib/jsondb";
 
 type Passkey = {
   id: Base64URLString;
@@ -24,9 +24,9 @@ type Passkey = {
   transports?: AuthenticatorTransportFuture[];
 };
 
-const db = new JsonFileDB<Passkey>('passkeys.json');
-const rpName = 'My Service'; // 서비스명
-const rpID = 'localhost'; // 사이트의 고유 식별자. 로컬 개발 시 'localhost'도 가능
+const db = new JsonFileDB<Passkey>("passkeys.json");
+const rpName = "My Service"; // 서비스명
+const rpID = "localhost"; // 사이트의 고유 식별자. 로컬 개발 시 'localhost'도 가능
 const origin = `http://${rpID}:3000`; // 등록 및 인증 URL. 'http://localhost', 'http://localhost:PORT'도 가능 (후행슬래시 x)
 
 /**
@@ -36,7 +36,7 @@ export async function getRegistrationOptionsAction(email: string) {
   const passkeys = await db.readAll();
   const excludeCredentials = passkeys.map((passkey) => ({
     id: passkey.id,
-    type: 'public-key',
+    type: "public-key",
   }));
 
   const options = await generateRegistrationOptions({
@@ -44,12 +44,12 @@ export async function getRegistrationOptionsAction(email: string) {
     rpID,
     userDisplayName: email,
     userName: email,
-    attestationType: 'none', // authenticator 추가 정보 입력 프롬프트 비활성화 (UX 향상 권장)
+    attestationType: "none", // authenticator 추가 정보 입력 프롬프트 비활성화 (UX 향상 권장)
     excludeCredentials, // 기존 authenticator 재등록 방지
     authenticatorSelection: {
-      residentKey: 'preferred', // Default
-      userVerification: 'preferred', // Default
-      authenticatorAttachment: 'platform', // Optional
+      residentKey: "preferred", // Default
+      userVerification: "preferred", // Default
+      authenticatorAttachment: "platform", // Optional
     },
   });
 
@@ -73,7 +73,7 @@ export async function verifyRegistrationAction(
     });
 
     if (!verification.verified) {
-      throw new Error('Verification failed');
+      throw new Error("Verification failed");
     }
 
     const registrationInfo = verification.registrationInfo!;
@@ -104,5 +104,5 @@ export async function verifyRegistrationAction(
 }
 
 function uint8ArrayToBase64url(u8: Uint8Array): string {
-  return Buffer.from(u8).toString('base64url');
+  return Buffer.from(u8).toString("base64url");
 }

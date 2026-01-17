@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -5,9 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
-    </html> 
+      <body className="w-screen h-screen bg-gray-700">{children}</body>
+    </html>
   );
 }

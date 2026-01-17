@@ -1,0 +1,12 @@
+[
+  {
+    "id": "nSABm6wjQ13kBoTDXVghO4gLkhQ",
+    "publicKey": "pQECAyYgASFYIBqYcT8kk_0lTsTie3s2RsC3ZUHEC3wsc0i-XBlw6m12IlggAJRq0RT6lsKgIWG_Tr5FOvoE0fQP6MzvmbdCCirVs5k",
+    "user": { "id": "HSY@gmail.com" },
+    "webauthnUserId": "u7dxwrk7vsNHdjIXHyzLdmAPjCRkavtuG0Yod2zSeIM",
+    "counter": 0,
+    "deviceType": "multiDevice",
+    "backedUp": true,
+    "transports": ["hybrid", "internal"]
+  }
+]
